@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Sark Plots</string>
+    <string name="about">Android Application for the SARK-110 (http://www.sark110.com)</string>
+    <string name="about_copyright_text">© 2018 Melchor Varela - EA4FRB</string>
+    <string name="about_menu_text">About</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="pf_sweep_start">Start Frequency</string>
+    <string name="pf_sweep_stop">Stop Frequency</string>
+    <string name="pf_presets">Presets</string>
+    <string name="pf_number_of_steps">Steps         </string>
+    <string name="cf_do_single_sweep">Single Sweep</string>
+    <string name="cf_do_cont_sweep">Cont. Sweep</string>
+    <string name="pf_do_connect">Connect</string>
+    <string name="pf_button_usb1">USB</string>
+    <string name="pf_bluetooth_button">Bluetooth</string>
+    <string name="action_left_plot">Left Plot</string>
+    <string name="action_left_plot_condensed">Left Plot</string>
+    <string name="action_right_plot">Right Plot</string>
+    <string name="action_right_plot_condensed">Right Plot</string>
+    <string name="action_exit">Exit</string>
+    <string name="pf_default_start">3.0</string>
+    <string name="pf_default_stop">30.0</string>
+    <string name="pf_default_steps">100</string>
+    <string name="pf_default_ref_imp">50.0</string>
+    <string name="pf_continuous">Continuous</string>
+    <string name="pf_disp_freq">1.25</string>
+    <string name="pf_disp_vswr">10:1</string>
+	<string name="ma_reset_title">Reset</string>
+    <string name="pf_connected">Connected</string>
+    <string name="pf_disconnected">Disconnected</string>
+
+    <string name="sca_connect_button_text">Connect</string>
+    <string name="sca_send_button_text">Send</string>
+
+    <string name="prefcat_settings_title">Settings</string>
+    <string name="pref_start_freq_setting_title">Start Freq</string>
+    <string name="pref_start_freq_setting_summary">The sweep start frequency</string>
+    <string name="pref_stop_freq_setting_title">Stop Freq</string>
+    <string name="pref_stop_freq_setting_summary">The sweep stop frequency</string>
+    <string name="pref_steps_setting_title">Steps</string>
+    <string name="pref_steps_setting_summary">The number of data points</string>
+    <string name="pref_ref_imp_setting_title">Ref Impedance</string>
+    <string name="pref_ref_imp_setting_summary">The reference impedance</string>
+    <string name="pref_bluetooth_setting_title">Bluetooth</string>
+    <string name="pref_bluetooth_setting_summary">Check for Bluetooth connection. Uncheck for USB</string>
+    <string name="key_of_pref_Bluetooth">pref_Bluetooth</string>
+
+</resources>

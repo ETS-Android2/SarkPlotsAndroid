@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="plot_param_list_item_array">
+        <item>Rs</item>
+        <item>Xs</item>
+        <item>|Zs|</item>
+        <item>&lt;Zs</item>
+        <item>VSWR</item>
+        <item>|Rho|</item>
+        <item>&lt;Rho</item>
+        <item>%Ref Pwr</item>
+        <item>RL</item>
+        <item>CL</item>
+        <item>Q</item>
+        <item>Cs</item>
+        <item>Ls</item>
+    </string-array>
+</resources>
