@@ -1,10 +1,3 @@
-/**
- * SARK Plots for Android software
- *
- * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
- * Copyright 2018
- */
-
 package com.sark110.sarkplotsandroid;
 
 import android.content.ContentValues;
@@ -15,7 +8,12 @@ import android.os.AsyncTask;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * SARK Plots for Android software
+ *
+ * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
+ * Copyright 2018
+ */
 public class Sweeper extends AsyncTask<Void,MeasureDataBin,Void> implements DataUpdateListener{
 	public final static String USB_CONSOLE = "usbConsole";
 	
@@ -78,10 +76,8 @@ public class Sweeper extends AsyncTask<Void,MeasureDataBin,Void> implements Data
 				mDb.insert(SweepDatabaseHelper.TABLE_SWEEPDATA, null, values);
 			}
 			mDbh.close();
-			return;
 		}catch(Exception e){
 			e.printStackTrace();
-			return;
 		}finally{
 			if(mDb != null && mDbh != null && mDb.isOpen()){
 				mDb.close();
@@ -102,8 +98,6 @@ public class Sweeper extends AsyncTask<Void,MeasureDataBin,Void> implements Data
 			int dbSize = data.size();
 			dbr.close();
 
-			mDeviceIntf.connect();
-
 			float freqstep = (mStopFreq - mStartFreq)/ mSteps;
 			
 			mDbh = new SweepDatabaseHelper(mContext);
@@ -122,7 +116,7 @@ public class Sweeper extends AsyncTask<Void,MeasureDataBin,Void> implements Data
 				MeasureDataBin sdata = mDeviceIntf.MeasureCmd((mStartFreq +(i*freqstep)));
 				if (sdata == null)
 					break;
-				sdata.setId(i);;
+				sdata.setId(i);
 				values.put(SweepDatabaseHelper.COLUMN_ID, (long)i);
 				values.put(SweepDatabaseHelper.COLUMN_FREQ, mStartFreq +(i*freqstep));
 				values.put(SweepDatabaseHelper.COLUMN_RS, sdata.getRs());
@@ -147,7 +141,6 @@ public class Sweeper extends AsyncTask<Void,MeasureDataBin,Void> implements Data
 		for(DataUpdateListener du: mListeners){
 			du.SweepDataUpdated(datas[0]);
 		}
-		return;
 	}
 	
 	@Override
@@ -155,8 +148,7 @@ public class Sweeper extends AsyncTask<Void,MeasureDataBin,Void> implements Data
 		for(DataUpdateListener du: mListeners){
 			du.SweepDataUpdated(null);
 		}
-		return;
-    }
+	}
 	
 	/**
 	 * End of AsyncTask methods

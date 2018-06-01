@@ -1,10 +1,3 @@
-/**
- * SARK Plots for Android software
- *
- * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
- * Copyright 2018
- */
-
 package com.sark110.sarkplotsandroid;
 
 import android.app.AlertDialog;
@@ -29,6 +22,12 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.LineChart;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+/**
+ * SARK Plots for Android software
+ *
+ * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
+ * Copyright 2018
+ */
 public class MainActivity extends AppCompatActivity implements DataUpdateListener, OnItemSelectedListener {
 
 	private int mNumSteps;
@@ -53,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 
 		/* Get stored preferences */
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		final EditText et1=(EditText)findViewById(R.id.editTextStartFreq);
-		final EditText et2=(EditText)findViewById(R.id.editTextStopFreq);
+		final EditText et1= findViewById(R.id.editTextStartFreq);
+		final EditText et2= findViewById(R.id.editTextStopFreq);
 		et1.setText(prefs.getString("pref_startFreq", Float.toString(GblDefs.DEF_FREQ_START)));
 		et2.setText(prefs.getString("pref_stopFreq", Float.toString(GblDefs.DEF_FREQ_STOP)));
 		final float startFreq = et1.getText().toString().isEmpty()?GblDefs.DEF_FREQ_START:Float.valueOf(et1.getText().toString());
@@ -95,8 +94,8 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 			}
 		});
 
-		mLeftPlot = (int)prefs.getInt("LeftPlot", GblDefs.PLOT_VSWR);
-		mRightPlot = (int)prefs.getInt("RightPlot", GblDefs.PLOT_ZS_MAG);
+		mLeftPlot = prefs.getInt("LeftPlot", GblDefs.PLOT_VSWR);
+		mRightPlot = prefs.getInt("RightPlot", GblDefs.PLOT_ZS_MAG);
 
 		/* Spinners for left and right plot */
 		Spinner spinner = findViewById(R.id.spinnerLeftPlot);
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 		spinner.setAdapter(adapter);
 		spinner.setSelection(mLeftPlot);
 		spinner.setOnItemSelectedListener(this);
-		spinner = (Spinner) findViewById(R.id.spinnerRightPlot);
+		spinner = findViewById(R.id.spinnerRightPlot);
 		spinner.setAdapter(adapter);
 		spinner.setSelection(mRightPlot);
 		spinner.setOnItemSelectedListener(this);
@@ -115,11 +114,10 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 		mFreqPresets = FreqPresets.getM_FreqPresetsDef();
 		spinner = findViewById(R.id.spinnerPresets);
 		java.util.ArrayList<String> legendPresets = new java.util.ArrayList<>();
-		for (int i = 0; i  < mFreqPresets.length; i++)
-			legendPresets.add(mFreqPresets[i].getM_legend());
+		for (FreqPresets mFreqPreset : mFreqPresets) legendPresets.add(mFreqPreset.getM_legend());
 		ArrayAdapter<String> adapterPresets = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, legendPresets);
-		adapterPresets.setDropDownViewResource(android.R.layout.simple_spin‌​ner_dropdown_item);
+		adapterPresets.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapterPresets);
 		spinner.setSelection(0);
 		spinner.setOnItemSelectedListener(this);
@@ -138,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 		mDeviceIntf.setDeviceIntfListener(new DeviceIntf.DeviceIntfListener() {
 			@Override
 			public void onConnectionStateChanged(DeviceIntf helper, final boolean isConnected) {
-				TextView text = (TextView) findViewById(R.id.connect_text);
+				TextView text = findViewById(R.id.connect_text);
 				if (isConnected)
 					text.setText(getResources().getString(R.string.pf_connected));
 				else {
@@ -187,7 +185,6 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 	public void onResume(){
 		super.onResume();
 		mDeviceIntf.onResume();
-		mDeviceIntf.connect();
 	}
 
 	@Override
@@ -218,27 +215,27 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 	public void onItemSelected(AdapterView<?> parent, View view,
 							   int pos, long id) {
 		if (parent.getId() == R.id.spinnerLeftPlot) {
-			Spinner spinner = (Spinner) findViewById(R.id.spinnerLeftPlot);
+			Spinner spinner = findViewById(R.id.spinnerLeftPlot);
 			mLeftPlot = spinner.getSelectedItemPosition();
 			SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
 			editor.putInt("LeftPlot", mLeftPlot);
-			editor.commit();
+			editor.apply();
 			drawChart();
 		}
 		else if (parent.getId() == R.id.spinnerRightPlot) {
-			Spinner spinner = (Spinner) findViewById(R.id.spinnerRightPlot);
+			Spinner spinner = findViewById(R.id.spinnerRightPlot);
 			mRightPlot = spinner.getSelectedItemPosition();
 			SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
 			editor.putInt("RightPlot", mRightPlot);
-			editor.commit();
+			editor.apply();
 			drawChart();
 		}
 		else if (parent.getId() == R.id.spinnerPresets) {
-			Spinner spinner = (Spinner) findViewById(R.id.spinnerPresets);
+			Spinner spinner = findViewById(R.id.spinnerPresets);
 			int preset = spinner.getSelectedItemPosition();
 			if (preset!=0) {
-				EditText et1 = (EditText) findViewById(R.id.editTextStartFreq);
-				EditText et2 = (EditText) findViewById(R.id.editTextStopFreq);
+				EditText et1 = findViewById(R.id.editTextStartFreq);
+				EditText et2 = findViewById(R.id.editTextStopFreq);
 				et1.setText(String.valueOf(mFreqPresets[preset].getM_startFreq()));
 				et2.setText(String.valueOf(mFreqPresets[preset].getM_stopFreq()));
 			}
@@ -254,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 	@Override
 	public void SweepDataUpdated(MeasureDataBin data){
 		/* Updates progress bar */
-		ProgressBar progressBar =(ProgressBar)findViewById(R.id.progressBar);
+		ProgressBar progressBar = findViewById(R.id.progressBar);
 		progressBar.setProgress((mSweepIdx++ * 100)/ mNumSteps);
 
 		/* Updates chart */
@@ -263,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 		/* End sweep */
 		if(data == null){
 			mSweepRunning = false;
-			if (mIsSingleSweep == false)
+			if (!mIsSingleSweep)
 				launchSweeper();
 		}
 	}
@@ -298,8 +295,8 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 		mSweepIdx = 0;
 
 		// Get Values for Sweeping
-		EditText et1=(EditText)findViewById(R.id.editTextStartFreq);
-		EditText et2=(EditText)findViewById(R.id.editTextStopFreq);
+		EditText et1= findViewById(R.id.editTextStartFreq);
+		EditText et2= findViewById(R.id.editTextStopFreq);
 		float startFreq = et1.getText().toString().isEmpty()?GblDefs.DEF_FREQ_START:Float.valueOf(et1.getText().toString());
 		float stopFreq = et2.getText().toString().isEmpty()?GblDefs.DEF_FREQ_STOP:Float.valueOf(et2.getText().toString());
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -313,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 
 	public void drawChart(){
 		mCharter =new ChartMaker(this);
-		LineChart chart=(LineChart)findViewById(R.id.chart);
+		LineChart chart= findViewById(R.id.chart);
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		float refImp = Float.valueOf(prefs.getString("pref_RefImp", getString(R.string.pf_default_ref_imp)));
@@ -322,8 +319,8 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 		float f = mCharter.getFreqMin();
 		float min = mCharter.getVswrMin();
 
-		TextView tvFreq = (TextView)findViewById(R.id.dispFreq);
-		TextView tvVswr = (TextView)findViewById(R.id.dispVswr);
+		TextView tvFreq = findViewById(R.id.dispFreq);
+		TextView tvVswr = findViewById(R.id.dispVswr);
 		tvFreq.setText( String.format("%1$,.3f MHz",f) );
 		tvVswr.setText( String.format("%1$,.2f : 1",min) );
 	}

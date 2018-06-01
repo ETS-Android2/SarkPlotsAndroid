@@ -1,10 +1,3 @@
-/**
- * SARK Plots for Android software
- *
- * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
- * Copyright 2018
- */
-
 package com.sark110.sarkplotsandroid;
 
 import android.content.Context;
@@ -29,7 +22,7 @@ public class MyMarkerView extends MarkerView {
     public MyMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
 
-        tvContent = (TextView) findViewById(R.id.tvContent);
+        tvContent = findViewById(R.id.tvContent);
     }
 
     // callbacks everytime the MarkerView is redrawn, can be used to update the

@@ -1,10 +1,3 @@
-/**
- * SARK Plots for Android software
- *
- * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
- * Copyright 2018
- */
-
 package com.sark110.sarkplotsandroid;
 
 import java.util.List;
@@ -29,6 +22,12 @@ import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
+/**
+ * SARK Plots for Android software
+ *
+ * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
+ * Copyright 2018
+ */
 public class ChartMaker implements OnChartGestureListener, OnChartValueSelectedListener {
 	private LineChart mChart;
 	private LineDataSet mDataLeft;

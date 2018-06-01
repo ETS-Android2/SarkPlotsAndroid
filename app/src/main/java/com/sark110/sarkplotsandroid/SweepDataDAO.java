@@ -1,9 +1,3 @@
-/**
- * SARK Plots for Android software
- *
- * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
- * Copyright 2018
- */
 package com.sark110.sarkplotsandroid;
 
 import java.util.ArrayList;
@@ -15,6 +9,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * SARK Plots for Android software
+ *
+ * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
+ * Copyright 2018
+ */
 public class SweepDataDAO {
 
   // Database fields

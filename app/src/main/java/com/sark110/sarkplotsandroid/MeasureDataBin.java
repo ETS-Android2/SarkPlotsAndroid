@@ -1,11 +1,11 @@
 package com.sark110.sarkplotsandroid;
 
-/*
+/**
  * This file is a part of the "SARK110 Antenna Vector Impedance Analyzer" software
  *
  * MIT License
  *
- * Copyright (c) 2018 Melchor Varela - EA4FRB
+ * @author Copyright (c) 2018 Melchor Varela - EA4FRB
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,14 +25,13 @@ package com.sark110.sarkplotsandroid;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 public class MeasureDataBin {
 	private long mId;
 	private float mFreq;
 	private ComplexNumber mZs;
 
 	public void set_RefImp(float r0) {
-		this.m_z0 = new ComplexNumber(r0, 0);;
+		this.m_z0 = new ComplexNumber(r0, 0);
 	}
 
 	private ComplexNumber m_z0 = new ComplexNumber(50.0, 0);

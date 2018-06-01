@@ -1,10 +1,3 @@
-/**
- * SARK Plots for Android software
- *
- * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
- * Copyright 2018
- */
-
 package com.sark110.sarkplotsandroid;
 
 import android.content.Context;
@@ -12,6 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * SARK Plots for Android software
+ *
+ * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
+ * Copyright 2018
+ */
 public class SweepDatabaseHelper extends SQLiteOpenHelper{
 	public static final String TABLE_SWEEPDATA = "sweepdata";
 	public static final String COLUMN_ID = "_id";

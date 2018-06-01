@@ -1,10 +1,3 @@
-/**
- * SARK Plots for Android software
- *
- * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
- * Copyright 2018
- */
-
 package com.sark110.sarkplotsandroid;
 
 import android.app.Activity;
@@ -19,6 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/**
+ * SARK Plots for Android software
+ *
+ * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
+ * Copyright 2018
+ */
 public class AboutBox {
 	static String VersionName(Context context) {
 		try {
@@ -30,7 +29,10 @@ public class AboutBox {
 	public static void Show(Activity callingActivity) {
 		//Use a Spannable to allow for links highlighting
 		SpannableString aboutText = new SpannableString("\nVersion " + VersionName(callingActivity)+ "\n\n"
-				+ callingActivity.getString(R.string.about) + "\n\n" + callingActivity.getString(R.string.about_copyright_text));
+				+ callingActivity.getString(R.string.about) + "\n\n" + callingActivity.getString(R.string.about_copyright_text) +
+				"\n\nOpen source code:\n" +
+				"\t- MPAndroidChart Copyright 2018 Philipp Jahoda\n"
+		);
 		//Generate views to pass to AlertDialog.Builder and to set the text
 		View about;
 		TextView tvAbout;
@@ -38,7 +40,7 @@ public class AboutBox {
 			//Inflate the custom view
 			LayoutInflater inflater = callingActivity.getLayoutInflater();
 			about = inflater.inflate(R.layout.aboutbox, (ViewGroup) callingActivity.findViewById(R.id.aboutView));
-			tvAbout = (TextView) about.findViewById(R.id.aboutText);
+			tvAbout = about.findViewById(R.id.aboutText);
 		} catch(InflateException e) {
 			//Inflater can throw exception, unlikely but default to TextView if it occurs
 			about = tvAbout = new TextView(callingActivity);

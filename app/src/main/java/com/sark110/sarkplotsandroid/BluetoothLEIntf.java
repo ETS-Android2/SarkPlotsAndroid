@@ -1,30 +1,4 @@
 package com.sark110.sarkplotsandroid;
-/*
- * This file is a part of the "SARK110 Antenna Vector Impedance Analyzer" software
- *
- * MIT License
- *
- * Copyright (c) 2018 Melchor Varela - EA4FRB
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 
 import android.app.Activity;
 import android.bluetooth.BluetoothGattCharacteristic;
@@ -58,7 +32,32 @@ import android.os.Handler;
 
 import static android.content.Context.BLUETOOTH_SERVICE;
 
-public class BluetoothLEIntf extends DeviceIntf {
+/**
+ * This file is a part of the "SARK110 Antenna Vector Impedance Analyzer" software
+ *
+ * MIT License
+ *
+ * @author Copyright (c) 2018 Melchor Varela - EA4FRB
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+class BluetoothLEIntf extends DeviceIntf {
     private static final String SERVICE_STRING = "49535343-fe7d-4ae5-8fa9-9fafd205e455";
     private static final String WRITE_STRING = "49535343-1e4d-4bd9-ba61-23c647249616";
     private static final String READ_STRING = "49535343-1e4d-4bd9-ba61-23c647249616";
@@ -114,9 +113,7 @@ public class BluetoothLEIntf extends DeviceIntf {
 
     public void onResume() {
         // Check low energy support
-        if (!mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            // LE not supported on this device
-        }
+        mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE);
     }
 
     /* functions */
@@ -125,7 +122,7 @@ public class BluetoothLEIntf extends DeviceIntf {
         disconnectGattServer();
     }
 
-    public void connect () {
+    void connect() {
         /*
          * Implemented the comment bond method. This requires that the user manually bonds the device
          * from the Bluetooth setup menu
@@ -232,7 +229,7 @@ public class BluetoothLEIntf extends DeviceIntf {
     /* Callbacks */
     private class BtleScanCallback extends ScanCallback {
 
-        private Map<String, BluetoothDevice> mScanResults;
+        private final Map<String, BluetoothDevice> mScanResults;
 
         BtleScanCallback(Map<String, BluetoothDevice> scanResults) {
             mScanResults = scanResults;
@@ -322,9 +319,7 @@ public class BluetoothLEIntf extends DeviceIntf {
 
         mWriteCharacteristic.setValue(data);
         mWriteCharacteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-        if(!mGatt.writeCharacteristic(mWriteCharacteristic)){
-
-        }
+        mGatt.writeCharacteristic(mWriteCharacteristic);
     }
 
     private void enableReceiveNotifications() {
@@ -343,9 +338,7 @@ public class BluetoothLEIntf extends DeviceIntf {
         descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
         mGatt.writeDescriptor(descriptor);
         mGatt.setCharacteristicNotification(mReadCharacteristic, true);
-        if(!mGatt.readCharacteristic(mReadCharacteristic)){
-
-        }
+        mGatt.readCharacteristic(mReadCharacteristic);
     }
 
     protected int SendRcv(byte snd[], byte rcv[])

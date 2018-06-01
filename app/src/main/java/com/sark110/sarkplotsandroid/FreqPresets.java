@@ -1,12 +1,11 @@
+package com.sark110.sarkplotsandroid;
+
 /**
  * SARK Plots for Android software
  *
  * @author EA4FRB - Melchor Varela <melchor.varela@gmail.com>
  * Copyright 2018
  */
-
-package com.sark110.sarkplotsandroid;
-
 public class FreqPresets {
     public String getM_legend() {
         return m_legend;
