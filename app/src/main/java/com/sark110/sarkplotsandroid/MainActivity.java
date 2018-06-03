@@ -360,5 +360,4 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 		//alertDialog.setIcon(R.drawable.icon);
 		alertDialog.show();
 	}
-
 }
