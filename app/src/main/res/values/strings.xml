@@ -38,14 +38,21 @@
     <string name="prefcat_settings_title">Settings</string>
     <string name="pref_start_freq_setting_title">Start Freq</string>
     <string name="pref_start_freq_setting_summary">The sweep start frequency</string>
+
     <string name="pref_stop_freq_setting_title">Stop Freq</string>
     <string name="pref_stop_freq_setting_summary">The sweep stop frequency</string>
+
     <string name="pref_steps_setting_title">Steps</string>
     <string name="pref_steps_setting_summary">The number of data points</string>
+
     <string name="pref_ref_imp_setting_title">Ref Impedance</string>
     <string name="pref_ref_imp_setting_summary">The reference impedance</string>
+
     <string name="pref_bluetooth_setting_title">Bluetooth</string>
     <string name="pref_bluetooth_setting_summary">Check for Bluetooth connection. Uncheck for USB</string>
     <string name="key_of_pref_Bluetooth">pref_Bluetooth</string>
 
+    <string name="pref_fastscan_setting_title">Fast Scan</string>
+    <string name="pref_fastscan_setting_summary">Check for faster scan (slightly lower precision)</string>
+    <string name="key_of_pref_FastScan">pref_FastScan</string>
 </resources>

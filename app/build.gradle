@@ -4,10 +4,10 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.sark110.sarkplotsandroid"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
-        versionName '1.0.0'
+        versionName '1.0.1'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

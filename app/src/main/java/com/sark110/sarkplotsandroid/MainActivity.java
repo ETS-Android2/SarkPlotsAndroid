@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 	private boolean mIsSingleSweep = false;
 	private boolean mSweepRunning = false;
 	private boolean mIsBluetooth = false;
+	private boolean mIsFastScan = false;
 	private int mSweepIdx;
 	private ParamFragment mMyFrag = null;
 	private ChartMaker mCharter;
@@ -301,8 +302,9 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 		float stopFreq = et2.getText().toString().isEmpty()?GblDefs.DEF_FREQ_STOP:Float.valueOf(et2.getText().toString());
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		mNumSteps = Integer.valueOf(prefs.getString("pref_Steps", getString(R.string.pf_default_steps)));
+		mIsFastScan = prefs.getBoolean("pref_FastScan", true);
 
-		mSweeper = new Sweeper(this, mDeviceIntf, mNumSteps, startFreq, stopFreq);
+		mSweeper = new Sweeper(this, mDeviceIntf, mNumSteps, startFreq, stopFreq, mIsFastScan);
 		mSweeper.addListener(this);
 		mSweeper.execute();
 	}

@@ -29,6 +29,12 @@
 			android:summary="@string/pref_bluetooth_setting_summary"
 			android:title="@string/pref_bluetooth_setting_title" >
 		</CheckBoxPreference>
+		<CheckBoxPreference
+			android:defaultValue="true"
+			android:key="pref_FastScan"
+			android:summary="@string/pref_fastscan_setting_summary"
+			android:title="@string/pref_fastscan_setting_title" >
+		</CheckBoxPreference>
 	</PreferenceCategory>
 	<!--
     <PreferenceCategory
