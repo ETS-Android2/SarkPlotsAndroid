@@ -1,7 +1,9 @@
 package com.sark110.sarkplotsandroid;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 import android.graphics.Color;
 import android.content.Context;
@@ -29,6 +31,11 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
  * Copyright 2018
  */
 public class ChartMaker implements OnChartGestureListener, OnChartValueSelectedListener {
+	private static final int SCALE_AUTORANGE = 0;
+	private static final int SCALE_DEFAULT = 1;
+	private static final int SCALE_HIGH = 2;
+	private static final int SCALE_LOW = 3;
+
 	private LineChart mChart;
 	private LineDataSet mDataLeft;
 	private LineDataSet mDataRight;
@@ -162,7 +169,7 @@ public class ChartMaker implements OnChartGestureListener, OnChartValueSelectedL
 		db.close();
 	}
 
-	public void drawGraph(LineChart chart, int left, int right, float refImp){
+	public void drawGraph(LineChart chart, int left, int right, float refImp, int scale){
 		
 		if(chart == null){
 			return;
@@ -215,12 +222,34 @@ public class ChartMaker implements OnChartGestureListener, OnChartValueSelectedL
 		mDataRight.setLineWidth(2.0F);
 
 		/* Customizations */
+		Range range;
 		Legend legend = chart.getLegend();
 		legend.setTextSize(15f);
 		YAxis yAxis = chart.getAxisLeft();
 		yAxis.setTextSize(15F);
+		if (scale != SCALE_AUTORANGE) {
+			if (scale == SCALE_LOW)
+				range = mScaleLow.get((short) left);
+			else if (scale == SCALE_HIGH)
+				range = mScaleHigh.get((short) left);
+			else
+				range = mScaleDefault.get((short) left);
+			yAxis.setAxisMaximum(range.getMax());
+			yAxis.setAxisMinimum(range.getMin());
+		}
+
 		yAxis = chart.getAxisRight();
 		yAxis.setTextSize(15F);
+		if (scale != SCALE_AUTORANGE) {
+			if (scale == SCALE_LOW)
+				range = mScaleLow.get((short) right);
+			else if (scale == SCALE_HIGH)
+				range = mScaleHigh.get((short) right);
+			else
+				range = mScaleDefault.get((short) right);
+			yAxis.setAxisMaximum(range.getMax());
+			yAxis.setAxisMinimum(range.getMin());
+		}
 		XAxis xAxis = chart.getXAxis();
 		xAxis.setTextSize(15F);
 		xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -277,4 +306,67 @@ public class ChartMaker implements OnChartGestureListener, OnChartValueSelectedL
 	@Override
 	public void onNothingSelected() {
 	}
+
+	/* Fixed scale */
+	private class Range {
+		public float getMax() {
+			return mMax;
+		}
+		public float getMin() {
+			return mMin;
+		}
+		private float mMax;
+		private float mMin;
+		Range(float min, float max) {
+			mMax = max;
+			mMin = min;
+		}
+	}
+	private final HashMap<Short, Range> mScaleDefault = new HashMap<Short, Range>(){{
+		put(GblDefs.PLOT_RS, new Range(0F, 1000F));
+		put(GblDefs.PLOT_XS, new Range(-500F, 500F));
+		put(GblDefs.PLOT_ZS_MAG, new Range(0F, 1000F));
+		put(GblDefs.PLOT_ZS_ANGLE, new Range(-90F, 90F));
+		put(GblDefs.PLOT_VSWR, new Range(1F, 25F));
+		put(GblDefs.PLOT_RHO_MAG, new Range(0F, 1F));
+		put(GblDefs.PLOT_RHO_ANGLE, new Range(-180F, 180F));
+		put(GblDefs.PLOT_REF_PWR, new Range(0F, 100F));
+		put(GblDefs.PLOT_RL, new Range(-40F, 0F));
+		put(GblDefs.PLOT_CL, new Range(0F, 20F));
+		put(GblDefs.PLOT_Q, new Range(0F, 20F));
+		put(GblDefs.PLOT_CS, new Range(-10000F, 10000F));
+		put(GblDefs.PLOT_LS, new Range(-10000F, 10000F));
+	}};
+
+	private final HashMap<Short, Range> mScaleHigh = new HashMap<Short, Range>(){{
+		put(GblDefs.PLOT_RS, new Range(0F, 5000F));
+		put(GblDefs.PLOT_XS, new Range(-2500F, 2500F));
+		put(GblDefs.PLOT_ZS_MAG, new Range(0F, 5000F));
+		put(GblDefs.PLOT_ZS_ANGLE, new Range(-90F, 90F));
+		put(GblDefs.PLOT_VSWR, new Range(1F, 100F));
+		put(GblDefs.PLOT_RHO_MAG, new Range(0F, 1F));
+		put(GblDefs.PLOT_RHO_ANGLE, new Range(-180F, 180F));
+		put(GblDefs.PLOT_REF_PWR, new Range(0F, 100F));
+		put(GblDefs.PLOT_RL, new Range(-60F, 0F));
+		put(GblDefs.PLOT_CL, new Range(0F, 30F));
+		put(GblDefs.PLOT_Q, new Range(0F, 50F));
+		put(GblDefs.PLOT_CS, new Range(-100000F, 100000F));
+		put(GblDefs.PLOT_LS, new Range(-100000F, 100000F));
+	}};
+	private final HashMap<Short, Range> mScaleLow = new HashMap<Short, Range>(){{
+		put(GblDefs.PLOT_RS, new Range(0F, 500F));
+		put(GblDefs.PLOT_XS, new Range(-250F, 250F));
+		put(GblDefs.PLOT_ZS_MAG, new Range(0F, 500F));
+		put(GblDefs.PLOT_ZS_ANGLE, new Range(-90F, 90F));
+		put(GblDefs.PLOT_VSWR, new Range(1F, 10F));
+		put(GblDefs.PLOT_RHO_MAG, new Range(0F, 1F));
+		put(GblDefs.PLOT_RHO_ANGLE, new Range(-180F, 180F));
+		put(GblDefs.PLOT_REF_PWR, new Range(0F, 100F));
+		put(GblDefs.PLOT_RL, new Range(-20F, 0F));
+		put(GblDefs.PLOT_CL, new Range(0F, 10F));
+		put(GblDefs.PLOT_Q, new Range(0F, 20F));
+		put(GblDefs.PLOT_CS, new Range(-1000F, 1000F));
+		put(GblDefs.PLOT_LS, new Range(-1000F, 1000F));
+	}};
 }
+

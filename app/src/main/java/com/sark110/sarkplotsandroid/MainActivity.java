@@ -316,8 +316,9 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		float refImp = Float.valueOf(prefs.getString("pref_RefImp", getString(R.string.pf_default_ref_imp)));
+        int scale = Integer.valueOf(prefs.getString("pref_Scale", getString(R.string.pref_scale_setting_default)));
 
-		mCharter.drawGraph(chart, mLeftPlot, mRightPlot, refImp);
+		mCharter.drawGraph(chart, mLeftPlot, mRightPlot, refImp, scale);
 		float f = mCharter.getFreqMin();
 		float min = mCharter.getVswrMin();
 

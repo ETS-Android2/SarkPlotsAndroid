@@ -55,4 +55,9 @@
     <string name="pref_fastscan_setting_title">Fast Scan</string>
     <string name="pref_fastscan_setting_summary">Check for faster scan (slightly lower precision)</string>
     <string name="key_of_pref_FastScan">pref_FastScan</string>
+
+    <string name="pref_scale_setting_title">Scale</string>
+    <string name="pref_scale_setting_summary">Y Axis scale setting</string>
+    <string name="key_of_pref_Scale">pref_Scale</string>
+    <string name="pref_scale_setting_default">1</string>
 </resources>

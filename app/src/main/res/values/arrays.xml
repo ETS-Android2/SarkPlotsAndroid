@@ -15,4 +15,17 @@
         <item>Cs</item>
         <item>Ls</item>
     </string-array>
+
+    <string-array name="scale_setting">
+        <item name="Autorange">Autorange</item>
+        <item name="Fixed-Default">Fixed-Default</item>
+        <item name="Fixed-High">Fixed-High</item>
+        <item name="Fixed-Low">Fixed-Low</item>
+    </string-array>
+    <string-array name="scale_setting_Values">
+        <item name="Autorange">0</item>
+        <item name="Fixed-Default">1</item>
+        <item name="Fixed-High">2</item>
+        <item name="Fixed-Low">3</item>
+    </string-array>
 </resources>

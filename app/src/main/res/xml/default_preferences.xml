@@ -3,6 +3,13 @@
     <PreferenceCategory 
         android:title="@string/prefcat_settings_title"
         android:key="pref_default_storage_settings">
+		<ListPreference
+			android:key="pref_Scale"
+			android:title="@string/pref_scale_setting_title"
+			android:summary="@string/pref_scale_setting_summary"
+			android:defaultValue="@string/pref_scale_setting_default"
+			android:entries="@array/scale_setting"
+			android:entryValues="@array/scale_setting_Values" />
     	<EditTextPreference android:title="@string/pref_start_freq_setting_title"
     	    android:key="pref_startFreq"
 			android:defaultValue="@string/pf_default_start"
