@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
+import java.net.Authenticator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class Sweeper extends AsyncTask<Void,MeasureDataBin,Void> implements Data
 
 		if (startFreq < GblDefs.MIN_FREQ || stopFreq > GblDefs.MAX_FREQ ||
 				startFreq > (stopFreq -GblDefs.MIN_SPAN) ||
-				mStopFreq < (startFreq +GblDefs.MIN_SPAN)
+				stopFreq < (startFreq +GblDefs.MIN_SPAN)
 				) {
 			this.mStartFreq = GblDefs.DEF_FREQ_START;
 			this.mStopFreq = GblDefs.DEF_FREQ_STOP;

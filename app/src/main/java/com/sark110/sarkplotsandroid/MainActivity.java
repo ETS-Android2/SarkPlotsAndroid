@@ -152,6 +152,9 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 		if (savedInstanceState != null)   {
 			mMyFrag = (ParamFragment) getSupportFragmentManager().getFragment(savedInstanceState, "paramFragment");
 		}
+
+		FileHelper.exportCSV (this, "sark110.csv");
+		FileHelper.ReadFile(this);
 	}
 
 	@Override
