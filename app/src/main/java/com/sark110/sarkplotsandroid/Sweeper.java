@@ -19,8 +19,8 @@ public class Sweeper extends AsyncTask<Void,MeasureDataBin,Void> implements Data
 	public final static String USB_CONSOLE = "usbConsole";
 	
 	private int mSteps;
-	private float mStartFreq;
-	private float mStopFreq;
+	private double mStartFreq;
+	private double mStopFreq;
 	private Context mContext;
 	private List<DataUpdateListener> mListeners = new ArrayList<DataUpdateListener>();
 	private SQLiteDatabase mDb;
@@ -29,7 +29,7 @@ public class Sweeper extends AsyncTask<Void,MeasureDataBin,Void> implements Data
 	private ArrayList<MeasureDataBin> mInComing =new ArrayList<MeasureDataBin>();
 	private boolean mFastScan;
 
-	Sweeper(Context context, DeviceIntf deviceIntf, int steps, float startFreq, float stopFreq, boolean fastScan){
+	Sweeper(Context context, DeviceIntf deviceIntf, int steps, double startFreq, double stopFreq, boolean fastScan){
 		this.mContext = context;
 		this.mDeviceIntf = deviceIntf;
 		this.mFastScan = fastScan;
@@ -100,7 +100,7 @@ public class Sweeper extends AsyncTask<Void,MeasureDataBin,Void> implements Data
 			int dbSize = data.size();
 			dbr.close();
 
-			float freqstep = (mStopFreq - mStartFreq)/ mSteps;
+			double freqstep = (mStopFreq - mStartFreq)/ mSteps;
 			
 			mDbh = new SweepDatabaseHelper(mContext);
 			mDb = mDbh.getWritableDatabase();

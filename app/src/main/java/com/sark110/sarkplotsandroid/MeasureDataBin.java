@@ -27,10 +27,10 @@ package com.sark110.sarkplotsandroid;
  */
 public class MeasureDataBin {
 	private long mId;
-	private float mFreq;
+	private double mFreq;
 	private ComplexNumber mZs;
 
-	public void set_RefImp(float r0) {
+	public void set_RefImp(double r0) {
 		this.m_z0 = new ComplexNumber(r0, 0);
 	}
 
@@ -38,7 +38,7 @@ public class MeasureDataBin {
 
 	public MeasureDataBin(){}
 
-	public MeasureDataBin(long id, float freq, float Rs, float Xs){
+	public MeasureDataBin(long id, double freq, double Rs, double Xs){
 		this.mId = id;
 		this.mFreq = freq;
 		this.mZs = new ComplexNumber(Rs, Xs);
@@ -52,66 +52,66 @@ public class MeasureDataBin {
 		mId = _id;
 	}
 
-	public float getFreq(){
+	public double getFreq(){
 		return mFreq;
 	}
-	public void setFreq(float _freq){
+	public void setFreq(double _freq){
 		mFreq =_freq;
 	}
 
-	public void setZs(float Rs, float Xs) {
+	public void setZs(double Rs, double Xs) {
 		mZs = new ComplexNumber(Rs, Xs);
 	}
 
 	public ComplexNumber getZs() {
 		return mZs;
 	}
-	public float getRs() {
-		return (float) mZs.getRe();
+	public double getRs() {
+		return (double) mZs.getRe();
 	}
-	public float getXs() {
-		return (float) mZs.getIm();
+	public double getXs() {
+		return (double) mZs.getIm();
 	}
-	public float getZsMag() {
-		return (float) mZs.mod();
+	public double getZsMag() {
+		return (double) mZs.mod();
 	}
-	public float getZsAngle() { return (float)((mZs.getArg()/Math.PI) * 180.0);}
-	public float getVswr(){
+	public double getZsAngle() { return (double)((mZs.getArg()/Math.PI) * 180.0);}
+	public double getVswr(){
 		return Z2Vswr (mZs, m_z0);
 	}
-	public float getRL() {
+	public double getRL() {
 		ComplexNumber cxRho = Z2Rho(mZs, m_z0);
 		if (cxRho.mod() == 0)
 			return -99.999f;
 		else
-			return (float)(20f * Math.log10(cxRho.mod()));
+			return (double)(20f * Math.log10(cxRho.mod()));
 	}
-	public float getCL() {
+	public double getCL() {
 		ComplexNumber cxRho = Z2Rho(mZs, m_z0);
 		if (cxRho.mod() == 0)
 			return 99.999f;
 		else
 			return (float)(Math.abs(20f / (2f * Math.log10(cxRho.mod()))));
 	}
-	public float getRhMag() {
+	public double getRhMag() {
 		ComplexNumber cxRho = Z2Rho(mZs, m_z0);
-		return (float)cxRho.mod();
+		return (double)cxRho.mod();
 	}
-	public float getRhAngle() {
+	public double getRhAngle() {
 		ComplexNumber cxRho = Z2Rho(mZs, m_z0);
-		return (float)((cxRho.getArg()/Math.PI) * 180.0);
+		return (double)((cxRho.getArg()/Math.PI) * 180.0);
 	}
-	public float getRefPwr() {
+	public double getRefPwr() {
 		ComplexNumber cxRho = Z2Rho(mZs, m_z0);
-		return (float)(cxRho.mod() * cxRho.mod() * 100.0);
+		return (double)(cxRho.mod() * cxRho.mod() * 100.0);
 	}
-	public float getQ() {
+	public double getQ() {
 		if (mZs.getRe() == 0)
 			return 999.99f;
-		return (float)(Math.abs(mZs.getIm()/ mZs.getRe()));
+		return (double)(Math.abs(mZs.getIm()/ mZs.getRe()));
 	}
-	public float getCs() { return (float) calcC(mZs, mFreq); }
-	public float getLs() { return (float) calcL(mZs, mFreq); }
+	public double getCs() { return (double) calcC(mZs, mFreq); }
+	public double getLs() { return (double) calcL(mZs, mFreq); }
 
 	/* Conversion functions */
 	private ComplexNumber Z2Rho(ComplexNumber cxZ, ComplexNumber cxZ0)
@@ -119,23 +119,23 @@ public class MeasureDataBin {
 		return ComplexNumber.divide(ComplexNumber.subtract(cxZ, cxZ0), ComplexNumber.add(cxZ, cxZ0));
 	}
 
-	private float Z2Vswr (ComplexNumber cxZ, ComplexNumber cxZ0)
+	private double Z2Vswr (ComplexNumber cxZ, ComplexNumber cxZ0)
 	{
 		ComplexNumber cxRho = Z2Rho(cxZ, cxZ0);
 		if (cxRho.mod() > 0.980197824)
 			return 99.999f;
-		return (1.0f + (float)cxRho.mod()) / (1.0f - (float)cxRho.mod());
+		return (1.0f + (double)cxRho.mod()) / (1.0f - (double)cxRho.mod());
 	}
 
-	private double calcL(ComplexNumber cxZ, float freq)
+	private double calcL(ComplexNumber cxZ, double freq)
 	{
-		return cxZ.getIm() / (2.0 * Math.PI * (freq / 1000000.0));
+		return cxZ.getIm() / (2.0 * Math.PI * (freq / 1.0));
 	}
 
-	private double calcC(ComplexNumber cxZ, float freq)
+	private double calcC(ComplexNumber cxZ, double freq)
 	{
 		if (cxZ.getIm() == 0)
 			return -99999.99;
-		return -1000000.0 / (cxZ.getIm() * 2.0 * Math.PI * (freq / 1000000.0));
+		return -1000000.0 / (cxZ.getIm() * 2.0 * Math.PI * (freq / 1.0));
 	}
 }

@@ -59,13 +59,13 @@ public abstract class DeviceIntf {
      * Raw detectors measurement output
      */
     public class MeasureDetector {
-        private float mFreq;
+        private double mFreq;
         private float mMagV;
         private float mPhV;
         private float mMagI;
         private float mPhI;
 
-        public float getFreq() {
+        public double getFreq() {
             return mFreq;
         }
         public float getMagV() {
@@ -80,7 +80,7 @@ public abstract class DeviceIntf {
         public float getPhI() {
             return mPhI;
         }
-        MeasureDetector(float freq, float magV, float phV, float magI, float phI) {
+        MeasureDetector(double freq, float magV, float phV, float magI, float phI) {
             this.mFreq = freq;
             this.mMagV = magV;
             this.mPhV = phV;
@@ -209,7 +209,7 @@ public abstract class DeviceIntf {
      * @param samples   number of samples for averaging
      * @return  data; or null if error
      */
-    public MeasureDataBin MeasureCmd(float freq, byte samples) {
+    public MeasureDataBin MeasureCmd(double freq, byte samples) {
         int status;
 
         byte snd[] = new byte[COMMAND_LEN];
@@ -240,7 +240,7 @@ public abstract class DeviceIntf {
      * @param freq      frequency in MHz; use 0 to turn-off the generator
      * @return  data; or null if error
      */
-    public MeasureDataBin MeasureCmd(float freq) {
+    public MeasureDataBin MeasureCmd(double freq) {
         return MeasureCmd(freq, (byte)0);
     }
 
@@ -253,7 +253,7 @@ public abstract class DeviceIntf {
      * @param samples   number of samples for averaging
      * @return data (four); or null if error
      */
-    public MeasureDataBin[] MeasureCmdExt(float freq, float step, byte samples) {
+    public MeasureDataBin[] MeasureCmdExt(double freq, double step, byte samples) {
         int status;
         byte snd[] = new byte[COMMAND_LEN];
         byte rcv[] = new byte[COMMAND_LEN];
@@ -312,7 +312,7 @@ public abstract class DeviceIntf {
      * @param step      step frequency in MHz
      * @return data (four); or null if error
      */
-    public MeasureDataBin[] MeasureCmdExt(float freq, float step) {
+    public MeasureDataBin[] MeasureCmdExt(double freq, double step) {
         return MeasureCmdExt(freq, step, (byte) 0);
     }
 

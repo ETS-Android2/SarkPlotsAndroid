@@ -40,22 +40,22 @@ public class ChartMaker implements OnChartGestureListener, OnChartValueSelectedL
 	private LineDataSet mDataLeft;
 	private LineDataSet mDataRight;
 	public Context mContext;
-	private float mVswrMin = 10.0F;
-	private float mFreqMin = 1.0F;
+	private double mVswrMin = 10.0F;
+	private double mFreqMin = 1.0F;
 
 	public ChartMaker(Context context){
 		this.mContext =context;
 	}
 	
-	public float getVswrMin(){
+	public double getVswrMin(){
 		return mVswrMin;
 	}
 	
-	public float getFreqMin(){
+	public double getFreqMin(){
 		return mFreqMin;
 	}
 	
-	public void readSweepData(int left, int right, float refImp){
+	public void readSweepData(int left, int right, double refImp){
 		mVswrMin = 10.0F;
 		mFreqMin = 1.0F;
 		SweepDataDAO db = new SweepDataDAO(mContext);
@@ -64,7 +64,7 @@ public class ChartMaker implements OnChartGestureListener, OnChartValueSelectedL
 		db.open();
 		List<MeasureDataBin> sdata = db.getAllSweepData();
 		for(int i =0; i<sdata.size(); i++){
-			float valLeft, valRight;
+			double valLeft, valRight;
 			sdata.get(i).set_RefImp(refImp);
 			switch (left)
 			{
@@ -153,9 +153,9 @@ public class ChartMaker implements OnChartGestureListener, OnChartValueSelectedL
 					break;
 			}
 
-			Entry eLeft= new Entry(sdata.get(i).getFreq(), valLeft, (int)sdata.get(i).getId());
+			Entry eLeft= new Entry((float)sdata.get(i).getFreq(), (float)valLeft, (int)sdata.get(i).getId());
 			datapointsLeft.add(eLeft);
-			Entry eRight= new Entry(sdata.get(i).getFreq(), valRight, (int)sdata.get(i).getId());
+			Entry eRight= new Entry((float)sdata.get(i).getFreq(), (float)valRight, (int)sdata.get(i).getId());
 			datapointsRight.add(eRight);
 			if(sdata.get(i).getVswr() < mVswrMin && sdata.get(i).getVswr() > 0.5F ){
 				mVswrMin = sdata.get(i).getVswr();
@@ -169,7 +169,7 @@ public class ChartMaker implements OnChartGestureListener, OnChartValueSelectedL
 		db.close();
 	}
 
-	public void drawGraph(LineChart chart, int left, int right, float refImp, int scale){
+	public void drawGraph(LineChart chart, int left, int right, double refImp, int scale){
 		
 		if(chart == null){
 			return;

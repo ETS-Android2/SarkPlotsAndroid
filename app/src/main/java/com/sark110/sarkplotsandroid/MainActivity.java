@@ -192,6 +192,12 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 	}
 
 	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		mDeviceIntf.close();
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
@@ -256,7 +262,11 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 	public void SweepDataUpdated(MeasureDataBin data){
 		/* Updates progress bar */
 		ProgressBar progressBar = findViewById(R.id.progressBar);
-		progressBar.setProgress((mSweepIdx++ * 100)/ mNumSteps);
+		progressBar.setProgress((mSweepIdx * 100)/ mNumSteps);
+		if (mIsFastScan)
+			mSweepIdx += 4;
+		else
+			mSweepIdx += 1;
 
 		/* Updates chart */
 		drawChart();
@@ -322,8 +332,8 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
         int scale = Integer.valueOf(prefs.getString("pref_Scale", getString(R.string.pref_scale_setting_default)));
 
 		mCharter.drawGraph(chart, mLeftPlot, mRightPlot, refImp, scale);
-		float f = mCharter.getFreqMin();
-		float min = mCharter.getVswrMin();
+		double f = mCharter.getFreqMin();
+		double min = mCharter.getVswrMin();
 
 		TextView tvFreq = findViewById(R.id.dispFreq);
 		TextView tvVswr = findViewById(R.id.dispVswr);
