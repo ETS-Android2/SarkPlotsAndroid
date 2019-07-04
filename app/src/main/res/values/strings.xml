@@ -31,6 +31,7 @@
 	<string name="ma_reset_title">Reset</string>
     <string name="pf_connected">Connected</string>
     <string name="pf_disconnected">Disconnected</string>
+    <string name="pf_notavailable">Interface not available</string>
 
     <string name="sca_connect_button_text">Connect</string>
     <string name="sca_send_button_text">Send</string>

@@ -21,6 +21,9 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.Manifest;
+import android.support.v4.app.ActivityCompat;
+import android.content.pm.PackageManager;
 
 /**
  * SARK Plots for Android software
@@ -43,10 +46,19 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 	private int mLeftPlot;
 	private int mRightPlot;
 	private FreqPresets[] mFreqPresets;
+	private boolean mBlePermission = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		boolean permissionGranted = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
+		if(!permissionGranted) {
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
+		}
+		else
+			mBlePermission = true;
 
 		PreferenceManager.setDefaultValues(this, R.xml.default_preferences, false);
 		setContentView(R.layout.activity_main);
@@ -132,7 +144,12 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 			mDeviceIntf = new BluetoothLEIntf(this);
 		else
 			mDeviceIntf = new USBIntf(this);
-		mDeviceIntf.onCreate();
+
+        TextView text = findViewById(R.id.connect_text);
+        if (!mDeviceIntf.IsAvailable())
+            text.setText(getResources().getString(R.string.pf_notavailable));
+
+        mDeviceIntf.onCreate();
 		// Setup listener for connection events from the device
 		mDeviceIntf.setDeviceIntfListener(new DeviceIntf.DeviceIntfListener() {
 			@Override
@@ -280,7 +297,9 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 	}
 
 	public void onSingleSweepClick(View v){
-		
+		if (!mDeviceIntf.isConnected())
+			mDeviceIntf.connect();
+
 		if(mSweepRunning){
 			mSweepRunning = false;
 			mSweeper.cancel(true);
@@ -292,6 +311,8 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 	}
 
 	public void onContSweepClick(View v){
+		if (!mDeviceIntf.isConnected())
+			mDeviceIntf.connect();
 
 		if(mSweepRunning){
 			mSweepRunning = false;
@@ -375,5 +396,18 @@ public class MainActivity extends AppCompatActivity implements DataUpdateListene
 		// Set the Icon for the Dialog
 		//alertDialog.setIcon(R.drawable.icon);
 		alertDialog.show();
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		switch (requestCode) {
+			case 200: {
+				if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					mBlePermission = true;
+					mDeviceIntf.close();
+					mDeviceIntf.connect();
+				}
+			}
+		}
 	}
 }
