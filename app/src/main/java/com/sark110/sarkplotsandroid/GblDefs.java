@@ -21,7 +21,7 @@ public class GblDefs {
     static final short PLOT_CS = 11;
     static final short PLOT_LS = 12;
 
-    static final float MAX_FREQ = 700.0f;
+    static final float MAX_FREQ = 1000.0f;
     static final float MIN_FREQ = 0.01f;
     static final float MIN_SPAN = 0.01f;
 
